@@ -1,8 +1,20 @@
 import React, { useContext } from 'react'
 import { MyContext } from '../../Context/AuthProvider'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 const Navbar = () => {
+
+  const { user, handleLogOut } = useContext(MyContext);
+
+  const logOut = () => {
+    handleLogOut()
+      .then(res => {
+        console.log('Successfully Log Out!')
+      })
+      .catch(error => {
+      console.log(error)
+    })
+  }
 
   return (
     <div className="navbar py-8">
@@ -27,16 +39,23 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end gap-5 flex justify-end items-center text-lg">
-        <div>
-          <NavLink to='/login'>Login</NavLink>
-        </div>
-        <div>
-          <NavLink to='/register'>Registration</NavLink>
-        </div>
+        {
+          !user &&
+          <div>
+            <NavLink to='/login'>Login</NavLink>
+          </div>
+        }
+        {
+          !user && <div>
+            <NavLink to='/register'>Registration</NavLink>
+          </div>
+        }
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              {
+                user ? <img src="/images/1786166.jpg" /> : <img src="" />
+              }
             </div>
           </label>
           <ul tabIndex={0} className="menu menu-sm dropdown-content text-lg mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
@@ -46,8 +65,8 @@ const Navbar = () => {
                 <span className="badge">New</span>
               </a>
             </li>
-            <li><a>Settings</a></li>
-            <li><a>Logout</a></li>
+            <li><Link>Settings</Link></li>
+            <li><Link onClick={logOut}>Log Out</Link></li>
           </ul>
         </div>
       </div>

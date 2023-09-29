@@ -1,9 +1,11 @@
 import React, { useContext } from 'react'
 import { MyContext } from '../../Context/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
 
-  const { hendleSignUp, }=useContext(MyContext)
+  const { hendleSignUp } = useContext(MyContext)
+  const Navigate = useNavigate(); 
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -11,7 +13,9 @@ const Register = () => {
     const password = e.target.password.value;
     hendleSignUp(email, password)
       .then(res => {
-        console.log(res.user);
+        e.target.reset();
+        Navigate('/details')
+
       })
       .catch(error => {
         console.log(error);
@@ -26,6 +30,7 @@ const Register = () => {
           <div className="card-body w-[600px]">
 
             <form onSubmit={handleRegister} className="space-y-6">
+              
               <div className="form-control">
                 <label className="label">
                   <span className="label-text text-white">Email</span>
