@@ -4,6 +4,8 @@ import {
 import Layout from "../Layout/Layout";
 import Home from "../Components/Home/Home";
 import Login from "../Components/Login-Page/Login";
+import Register from "../Components/Register-Page/Register";
+import Dashboard from "../Components/Dashboard/Dashboard";
 
 const MyRouter = createBrowserRouter([
     {
@@ -20,11 +22,11 @@ const MyRouter = createBrowserRouter([
             },
             {
                 path: '/register',
-                element: <h1>Register</h1>
+                element: <Register />
             },
             {
                 path: '/dashboard',
-                element: <h1>Dashboard</h1>
+                element: <Dashboard />
             },
         ]
     }
